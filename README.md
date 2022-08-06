@@ -81,6 +81,6 @@ yarn dev
 
 ### とりあえず読んどいたらいいよのサイト群
 - [Storybook公式](https://storybook.js.org/)
-- [Next.js公式](https://nextjs.org/)
+- [Next.js公式](https://nextjs.org/)　日本語版は[こちら](https://nextjs-ja-translation-docs.vercel.app/)
 - [styled-components公式](https://styled-components.com/)
 - [Chakra UI公式](https://chakra-ui.com/)
