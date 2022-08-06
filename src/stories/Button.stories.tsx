@@ -17,6 +17,7 @@ export const button: ComponentStoryObj<typeof Button> = {
   args: {
     children: 'ボタンです',
     colorScheme: 'red',
-    onClick: () => {}
+    onClick: () => {},
+    disabled: true
   }
 }
