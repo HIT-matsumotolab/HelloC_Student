@@ -78,3 +78,9 @@ API_URL="localhost:3000"
 ```
 yarn dev
 ```
+
+### とりあえず読んどいたらいいよのサイト群
+- [Storybook公式](https://storybook.js.org/)
+- [Next.js公式](https://nextjs.org/)
+- [styled-components公式](https://styled-components.com/)
+- [Chakra UI公式](https://chakra-ui.com/)
