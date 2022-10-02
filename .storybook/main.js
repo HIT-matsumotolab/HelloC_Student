@@ -7,9 +7,6 @@ module.exports = {
     '../src/stories/**/*.stories.mdx',
     '../src/stories/**/*.stories.@(js|jsx|ts|tsx)'
   ],
-  refs: {
-    '@chakra-ui/react': { disable: true }
-  },
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
