@@ -11,6 +11,24 @@ a {
   text-decoration: none;
 }
 
+#__next {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  min-height: 100vh;
+  font-size: 16px;
+
+  background: linear-gradient(
+    116.82deg,
+    #000000 0%,
+    rgba(114, 28, 255, 0.67) 99.98%,
+    rgba(98, 2, 255, 0.59) 99.99%,
+    rgba(82, 0, 255, 0) 100%,
+    rgba(82, 0, 255, 0) 100%,
+    #6100ff 100%
+  );
+}
+
 * {
   box-sizing: border-box;
 }
