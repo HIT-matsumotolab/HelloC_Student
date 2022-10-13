@@ -2,8 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { Input, Button, FormErrorMessage, FormControl } from '@chakra-ui/react'
-
 import styled from 'styled-components'
+import client from '../../api/client'
 
 const LoginLayout = styled.div`
   padding: 100px 40px 0;
@@ -45,13 +45,25 @@ type LoginRequest = {
   password: string
 }
 
+const loginHandler = (request: LoginRequest) => {
+  client
+    .post(`/auth/signin`, {
+      body: JSON.stringify(request)
+    })
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((e) => {
+      console.log('error')
+    })
+}
+
 const Login = () => {
   const {
     handleSubmit,
     register,
     formState: { errors, isValid }
   } = useForm<LoginRequest>({ mode: 'onBlur' })
-  const onSubmit = (values: LoginRequest) => console.log(values)
 
   return (
     <LoginLayout>
@@ -61,7 +73,7 @@ const Login = () => {
       </LoginHeading>
       <LoginCaption>HelloC学習者向けサービス</LoginCaption>
 
-      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+      <LoginForm onSubmit={handleSubmit(loginHandler)}>
         <FormControl>
           <Input
             backgroundColor="#ffffff"
