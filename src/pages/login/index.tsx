@@ -1,6 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-import { Input, Button } from '@chakra-ui/react'
+import { useForm } from 'react-hook-form'
+import { Input, Button, FormErrorMessage, FormControl } from '@chakra-ui/react'
+
 import styled from 'styled-components'
 
 const LoginLayout = styled.div`
@@ -38,7 +40,19 @@ const LoginCaption = styled.div`
   color: #ffffff;
 `
 
+type LoginRequest = {
+  email: string
+  password: string
+}
+
 const Login = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isValid }
+  } = useForm<LoginRequest>({ mode: 'onBlur' })
+  const onSubmit = (values: LoginRequest) => console.log(values)
+
   return (
     <LoginLayout>
       <LoginHeading>
@@ -47,10 +61,45 @@ const Login = () => {
       </LoginHeading>
       <LoginCaption>HelloC学習者向けサービス</LoginCaption>
 
-      <LoginForm>
-        <Input backgroundColor="#ffffff" />
-        <Input backgroundColor="#ffffff" />
-        <Button backgroundColor="#31C6D4" color="#ffffff">
+      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+        <FormControl>
+          <Input
+            backgroundColor="#ffffff"
+            type="email"
+            {...register('email', {
+              required: 'Required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'invalid email address'
+              }
+            })}
+          />
+          <FormErrorMessage>
+            {errors.email && errors.email.message}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl>
+          <Input
+            backgroundColor="#ffffff"
+            type="password"
+            {...register('password', {
+              required: 'Required'
+              // pattern: {
+              //   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              //   message: 'invalid password'
+              // }
+            })}
+          />
+          <FormErrorMessage>
+            {errors.password && errors.password.message}
+          </FormErrorMessage>
+        </FormControl>
+        <Button
+          backgroundColor="#31C6D4"
+          color="#ffffff"
+          type="submit"
+          disabled={!isValid}
+        >
           Login
         </Button>
       </LoginForm>
