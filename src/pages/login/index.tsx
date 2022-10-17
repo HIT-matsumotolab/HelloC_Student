@@ -41,19 +41,21 @@ const LoginCaption = styled.div`
 `
 
 type LoginRequest = {
-  email: string
+  mail: string
   password: string
 }
 
 const loginHandler = (request: LoginRequest) => {
   client
     .post(`/auth/signin`, {
-      body: JSON.stringify(request)
+      mail: request.mail,
+      password: request.password
     })
     .then((res) => {
       console.log(res)
     })
     .catch((e) => {
+      console.log(e)
       console.log('error')
     })
 }
@@ -64,7 +66,7 @@ const Login = () => {
     register,
     formState: { errors, isValid }
   } = useForm<LoginRequest>({ mode: 'onBlur' })
-
+// console.log(client)
   return (
     <LoginLayout>
       <LoginHeading>
@@ -77,17 +79,17 @@ const Login = () => {
         <FormControl>
           <Input
             backgroundColor="#ffffff"
-            type="email"
-            {...register('email', {
+            type="mail"
+            {...register('mail', {
               required: 'Required',
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'invalid email address'
+                message: 'invalid mail address'
               }
             })}
           />
           <FormErrorMessage>
-            {errors.email && errors.email.message}
+            {errors.mail && errors.mail.message}
           </FormErrorMessage>
         </FormControl>
         <FormControl>
