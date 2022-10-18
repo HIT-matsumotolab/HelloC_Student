@@ -12,6 +12,7 @@ import styled from 'styled-components'
 import client from '../../api/client'
 import { AxiosError } from 'axios'
 import { AuthErrorResponse, AuthRequest } from '../../types/auth'
+import { mediaQuery } from '../../utils/style/mediaQuery'
 
 const RegisterLayout = styled.div`
   padding: 100px 40px 0;
@@ -31,13 +32,21 @@ const RegisterHeading = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  column-gap: 10px;
+  gap: 10px;
+
+  @media (max-width: 570px) {
+    flex-direction: column;
+  }
 `
 
 const RegisterTitle = styled.span`
   font-size: 40px;
   font-weight: bold;
   color: #ffffff;
+
+  ${mediaQuery['sp']`
+  font-size:28px;
+  `}
 `
 
 const RegisterCaption = styled.div`
@@ -46,6 +55,10 @@ const RegisterCaption = styled.div`
   font-size: 30px;
   font-weight: bold;
   color: #ffffff;
+
+  ${mediaQuery['sp']`
+  font-size:18px;
+  `}
 `
 
 const RegisterHandler = (request: AuthRequest) => {
