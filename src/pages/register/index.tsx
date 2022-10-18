@@ -1,17 +1,23 @@
 import React from 'react'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
-import { Input, Button, FormErrorMessage, FormControl } from '@chakra-ui/react'
+import {
+  Input,
+  Button,
+  FormErrorMessage,
+  FormControl,
+  Link
+} from '@chakra-ui/react'
 import styled from 'styled-components'
 import client from '../../api/client'
-import { AuthErrorResponse, AuthRequest } from '../../types/auth'
 import { AxiosError } from 'axios'
+import { AuthErrorResponse, AuthRequest } from '../../types/auth'
 
-const LoginLayout = styled.div`
+const RegisterLayout = styled.div`
   padding: 100px 40px 0;
 `
 
-const LoginForm = styled.form`
+const RegisterForm = styled.form`
   margin: 0 auto;
   max-width: 500px;
   margin-top: 50px;
@@ -20,7 +26,7 @@ const LoginForm = styled.form`
   row-gap: 20px;
 `
 
-const LoginHeading = styled.div`
+const RegisterHeading = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -28,13 +34,13 @@ const LoginHeading = styled.div`
   column-gap: 10px;
 `
 
-const LoginTitle = styled.span`
+const RegisterTitle = styled.span`
   font-size: 40px;
   font-weight: bold;
   color: #ffffff;
 `
 
-const LoginCaption = styled.div`
+const RegisterCaption = styled.div`
   margin-top: 30px;
   text-align: center;
   font-size: 30px;
@@ -42,9 +48,10 @@ const LoginCaption = styled.div`
   color: #ffffff;
 `
 
-const loginHandler = (request: AuthRequest) => {
+const RegisterHandler = (request: AuthRequest) => {
+  console.log('test')
   client
-    .post(`/auth/signin`, {
+    .post(`/auth/signup`, {
       mail: request.mail,
       password: request.password
     })
@@ -52,12 +59,12 @@ const loginHandler = (request: AuthRequest) => {
       console.log(res)
     })
     .catch((e: AxiosError<AuthErrorResponse>) => {
-      console.log(e)
+      console.log(e.response?.data.errors)
       console.log('error')
     })
 }
 
-const Login = () => {
+const Register = () => {
   const {
     handleSubmit,
     register,
@@ -65,14 +72,14 @@ const Login = () => {
   } = useForm<AuthRequest>({ mode: 'onBlur' })
   // console.log(client)
   return (
-    <LoginLayout>
-      <LoginHeading>
+    <RegisterLayout>
+      <RegisterHeading>
         <Image alt="Logo" src="/logo.svg" width="130" height="119" />
-        <LoginTitle> HelloC For Student</LoginTitle>
-      </LoginHeading>
-      <LoginCaption>HelloC学習者向けサービス</LoginCaption>
+        <RegisterTitle> HelloC For Student</RegisterTitle>
+      </RegisterHeading>
+      <RegisterCaption>HelloC学習者向けサービス</RegisterCaption>
 
-      <LoginForm onSubmit={handleSubmit(loginHandler)}>
+      <RegisterForm onSubmit={handleSubmit(RegisterHandler)}>
         <FormControl>
           <Input
             backgroundColor="#ffffff"
@@ -111,11 +118,11 @@ const Login = () => {
           type="submit"
           disabled={!isValid}
         >
-          Login
+          Register
         </Button>
-      </LoginForm>
-    </LoginLayout>
+      </RegisterForm>
+    </RegisterLayout>
   )
 }
 
-export default Login
+export default Register
