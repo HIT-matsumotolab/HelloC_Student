@@ -26,7 +26,7 @@ const LoginHeading = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  column-gap: 10px;
+  gap: 10px;
 
   @media (max-width: 570px) {
     flex-direction: column;
