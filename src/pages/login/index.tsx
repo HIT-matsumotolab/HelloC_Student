@@ -7,6 +7,7 @@ import client from '../../api/client'
 import { AuthErrorResponse, AuthRequest } from '../../types/auth'
 import { AxiosError } from 'axios'
 import { mediaQuery } from '../../utils/style/mediaQuery'
+import Link from 'next/link'
 
 const LoginLayout = styled.div`
   padding: 100px 40px 0;
@@ -127,6 +128,7 @@ const Login = () => {
           Login
         </Button>
       </LoginForm>
+      <Link href="/register">Register</Link>
     </LoginLayout>
   )
 }

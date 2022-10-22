@@ -12,6 +12,7 @@ export type AuthResponse = {
 }
 
 export type AuthRequest = {
+  name: string
   mail: string
   password: string
 }
