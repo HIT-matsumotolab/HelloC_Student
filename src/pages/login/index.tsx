@@ -117,6 +117,7 @@ const Login = () => {
         <FormControl>
           <Input
             backgroundColor="#ffffff"
+            placeholder="メールアドレス"
             type="mail"
             {...register('mail', {
               required: 'Required',
@@ -134,6 +135,7 @@ const Login = () => {
           <Input
             backgroundColor="#ffffff"
             type="password"
+            placeholder="パスワード"
             {...register('password', {
               required: 'Required'
               // pattern: {
