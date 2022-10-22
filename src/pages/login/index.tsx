@@ -1,13 +1,18 @@
 import React from 'react'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
-import { Input, Button, FormErrorMessage, FormControl } from '@chakra-ui/react'
+import {
+  Input,
+  Button,
+  FormErrorMessage,
+  FormControl,
+  Link
+} from '@chakra-ui/react'
 import styled from 'styled-components'
 import client from '../../api/client'
 import { AuthErrorResponse, AuthRequest } from '../../types/auth'
 import { AxiosError } from 'axios'
 import { mediaQuery } from '../../utils/style/mediaQuery'
-import Link from 'next/link'
 
 const LoginLayout = styled.div`
   padding: 100px 40px 0;
@@ -45,6 +50,9 @@ const LoginTitle = styled.span`
 `
 
 const LoginCaption = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
   margin-top: 30px;
   text-align: center;
   font-size: 30px;
@@ -54,6 +62,12 @@ const LoginCaption = styled.div`
   ${mediaQuery['sp']`
   font-size:18px;
   `}
+`
+
+const LinkCaption = styled.div`
+  font-size: 15px;
+  text-align: center;
+  margin-top: 15px;
 `
 
 const loginHandler = (request: AuthRequest) => {
@@ -84,7 +98,20 @@ const Login = () => {
         <Image alt="Logo" src="/logo.svg" width="130" height="119" />
         <LoginTitle> HelloC For Student</LoginTitle>
       </LoginHeading>
-      <LoginCaption>HelloC学習者向けサービス</LoginCaption>
+      <LoginCaption>
+        <span>HelloC学習者向けサービス</span>
+        <span>ログイン</span>
+      </LoginCaption>
+
+      <LinkCaption>
+        <Link
+          color="#ffffff"
+          style={{ borderBottom: '1px solid #ffffff', textDecoration: 'none' }}
+          href="/register"
+        >
+          新規登録はこちら
+        </Link>
+      </LinkCaption>
 
       <LoginForm onSubmit={handleSubmit(loginHandler)}>
         <FormControl>
@@ -128,7 +155,6 @@ const Login = () => {
           Login
         </Button>
       </LoginForm>
-      <Link href="/register">Register</Link>
     </LoginLayout>
   )
 }

@@ -50,6 +50,9 @@ const RegisterTitle = styled.span`
 `
 
 const RegisterCaption = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
   margin-top: 30px;
   text-align: center;
   font-size: 30px;
@@ -59,6 +62,12 @@ const RegisterCaption = styled.div`
   ${mediaQuery['sp']`
   font-size:18px;
   `}
+`
+
+const LinkCaption = styled.div`
+  font-size: 15px;
+  text-align: center;
+  margin-top: 15px;
 `
 
 const RegisterHandler = (request: AuthRequest) => {
@@ -92,7 +101,20 @@ const Register = () => {
         <Image alt="Logo" src="/logo.svg" width="130" height="119" />
         <RegisterTitle> HelloC For Student</RegisterTitle>
       </RegisterHeading>
-      <RegisterCaption>HelloC学習者向けサービス</RegisterCaption>
+      <RegisterCaption>
+        <span>HelloC学習者向けサービス</span>
+        <span>新規登録</span>
+      </RegisterCaption>
+
+      <LinkCaption>
+        <Link
+          color="#ffffff"
+          style={{ borderBottom: '1px solid #ffffff', textDecoration: 'none' }}
+          href="/login"
+        >
+          ログインはこちら
+        </Link>
+      </LinkCaption>
 
       <RegisterForm onSubmit={handleSubmit(RegisterHandler)}>
         <FormControl>
@@ -148,11 +170,11 @@ const Register = () => {
           color="#ffffff"
           type="submit"
           disabled={!isValid}
+          style={{ width: '100%' }}
         >
           Register
         </Button>
       </RegisterForm>
-      <Link href="/login">Login</Link>
     </RegisterLayout>
   )
 }
