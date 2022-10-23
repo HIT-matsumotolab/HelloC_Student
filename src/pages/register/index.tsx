@@ -13,6 +13,7 @@ import client from '../../api/client'
 import { AxiosError } from 'axios'
 import { AuthErrorResponse, AuthRequest } from '../../types/auth'
 import { mediaQuery } from '../../utils/style/mediaQuery'
+import { useCookies } from 'react-cookie'
 
 const RegisterLayout = styled.div`
   padding: 100px 40px 0;
@@ -70,31 +71,34 @@ const LinkCaption = styled.div`
   margin-top: 15px;
 `
 
-const RegisterHandler = (request: AuthRequest) => {
-  console.log('test')
-  client
-    .post(`/auth/signup`, {
-      mail: request.mail,
-      password: request.password,
-      name: request.name,
-      role: '学習者'
-    })
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((e: AxiosError<AuthErrorResponse>) => {
-      console.log(e.response?.data.errors)
-      console.log('error')
-    })
-}
-
 const Register = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['HelloC'])
   const {
     handleSubmit,
     register,
     formState: { errors, isValid }
   } = useForm<AuthRequest>({ mode: 'onBlur' })
-  // console.log(client)
+
+  const RegisterHandler = (request: AuthRequest) => {
+    client
+      .post(`/auth/signup`, {
+        mail: request.mail,
+        password: request.password,
+        name: request.name,
+        role: '学習者'
+      })
+      .then((res) => {
+        console.log(res.data)
+        alert('新規登録に成功しました！')
+        // TODO バックエンドからトークンが返されるようになった際に対応
+        // setCookie('HelloC', res.data.token)
+      })
+      .catch((e: AxiosError<AuthErrorResponse>) => {
+        console.log(e.response?.data.errors)
+        console.log('error')
+      })
+  }
+
   return (
     <RegisterLayout>
       <RegisterHeading>

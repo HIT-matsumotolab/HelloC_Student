@@ -13,6 +13,8 @@ import client from '../../api/client'
 import { AuthErrorResponse, AuthRequest } from '../../types/auth'
 import { AxiosError } from 'axios'
 import { mediaQuery } from '../../utils/style/mediaQuery'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
 
 const LoginLayout = styled.div`
   padding: 100px 40px 0;
@@ -70,28 +72,32 @@ const LinkCaption = styled.div`
   margin-top: 15px;
 `
 
-const loginHandler = (request: AuthRequest) => {
-  client
-    .post(`/auth/signin`, {
-      mail: request.mail,
-      password: request.password
-    })
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((e: AxiosError<AuthErrorResponse>) => {
-      console.log(e)
-      console.log('error')
-    })
-}
-
 const Login = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['HelloC'])
+  const router = useRouter()
   const {
     handleSubmit,
     register,
     formState: { errors, isValid }
   } = useForm<AuthRequest>({ mode: 'onBlur' })
-  // console.log(client)
+
+  const loginHandler = (request: AuthRequest) => {
+    client
+      .post(`/auth/signin`, {
+        mail: request.mail,
+        password: request.password
+      })
+      .then((res) => {
+        alert('ログインしました！')
+        setCookie('HelloC', res.data.token)
+        router.push('/')
+      })
+      .catch((e: AxiosError<AuthErrorResponse>) => {
+        console.log(e)
+        console.log('error')
+      })
+  }
+
   return (
     <LoginLayout>
       <LoginHeading>
