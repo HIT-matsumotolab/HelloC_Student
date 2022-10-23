@@ -10,10 +10,15 @@ import {
 } from '@chakra-ui/react'
 import styled from 'styled-components'
 import client from '../../api/client'
-import { AxiosError } from 'axios'
-import { AuthErrorResponse, AuthRequest } from '../../types/auth'
+import { AxiosError, AxiosResponse } from 'axios'
+import {
+  AuthErrorResponse,
+  AuthRequest,
+  RegisterResponse
+} from '../../types/auth'
 import { mediaQuery } from '../../utils/style/mediaQuery'
 import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
 
 const RegisterLayout = styled.div`
   padding: 100px 40px 0;
@@ -73,6 +78,7 @@ const LinkCaption = styled.div`
 
 const Register = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['HelloC'])
+  const router = useRouter()
   const {
     handleSubmit,
     register,
@@ -87,11 +93,11 @@ const Register = () => {
         name: request.name,
         role: '学習者'
       })
-      .then((res) => {
+      .then((res: AxiosResponse<RegisterResponse>) => {
         console.log(res.data)
         alert('新規登録に成功しました！')
-        // TODO バックエンドからトークンが返されるようになった際に対応
-        // setCookie('HelloC', res.data.token)
+        setCookie('HelloC', res.data.accessToken)
+        router.push('/')
       })
       .catch((e: AxiosError<AuthErrorResponse>) => {
         console.log(e.response?.data.errors)

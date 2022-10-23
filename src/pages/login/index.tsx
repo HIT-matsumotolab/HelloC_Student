@@ -10,8 +10,8 @@ import {
 } from '@chakra-ui/react'
 import styled from 'styled-components'
 import client from '../../api/client'
-import { AuthErrorResponse, AuthRequest } from '../../types/auth'
-import { AxiosError } from 'axios'
+import { AuthErrorResponse, AuthRequest, LoginResponse } from '../../types/auth'
+import { AxiosError, AxiosResponse } from 'axios'
 import { mediaQuery } from '../../utils/style/mediaQuery'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
@@ -87,9 +87,9 @@ const Login = () => {
         mail: request.mail,
         password: request.password
       })
-      .then((res) => {
+      .then((res: AxiosResponse<LoginResponse>) => {
         alert('ログインしました！')
-        setCookie('HelloC', res.data.token)
+        setCookie('HelloC', res.data.accessToken)
         router.push('/')
       })
       .catch((e: AxiosError<AuthErrorResponse>) => {

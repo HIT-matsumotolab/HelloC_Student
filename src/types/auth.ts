@@ -3,11 +3,15 @@ export type AuthErrorResponse = {
   accessToken: null
 }
 
-export type AuthResponse = {
+export type LoginResponse = {
   user_id: string
   name: string
   mail: string
   role: string
+  accessToken: string
+}
+
+export type RegisterResponse = {
   accessToken: string
 }
 
