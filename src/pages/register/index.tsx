@@ -6,7 +6,8 @@ import {
   Button,
   FormErrorMessage,
   FormControl,
-  Link
+  Link,
+  useToast
 } from '@chakra-ui/react'
 import styled from 'styled-components'
 import client from '../../api/client'
@@ -78,6 +79,7 @@ const LinkCaption = styled.div`
 
 const Register = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['HelloC'])
+  const toast = useToast()
   const router = useRouter()
   const {
     handleSubmit,
@@ -94,13 +96,17 @@ const Register = () => {
         role: '学習者'
       })
       .then((res: AxiosResponse<RegisterResponse>) => {
-        console.log(res.data)
-        alert('新規登録に成功しました！')
         setCookie('HelloC', res.data.accessToken)
         router.push('/')
       })
       .catch((e: AxiosError<RegisterErrorResponse>) => {
-        alert(e.response?.data.message)
+        toast({
+          title: 'Register Failed...',
+          description: e.response?.data.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true
+        })
       })
   }
 

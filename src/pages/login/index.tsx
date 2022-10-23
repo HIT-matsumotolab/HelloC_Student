@@ -6,7 +6,8 @@ import {
   Button,
   FormErrorMessage,
   FormControl,
-  Link
+  Link,
+  useToast
 } from '@chakra-ui/react'
 import styled from 'styled-components'
 import client from '../../api/client'
@@ -78,6 +79,7 @@ const LinkCaption = styled.div`
 
 const Login = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['HelloC'])
+  const toast = useToast()
   const router = useRouter()
   const {
     handleSubmit,
@@ -92,12 +94,17 @@ const Login = () => {
         password: request.password
       })
       .then((res: AxiosResponse<LoginResponse>) => {
-        alert('ログインしました！')
         setCookie('HelloC', res.data.accessToken)
         router.push('/')
       })
       .catch((e: AxiosError<LoginErrorResponse>) => {
-        alert(e.response?.data.errors[0].message)
+        toast({
+          title: 'Login Failed...',
+          description: e.response?.data.errors[0].message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true
+        })
       })
   }
 
