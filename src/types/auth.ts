@@ -1,6 +1,9 @@
-export type AuthErrorResponse = {
-  errors: string[]
-  accessToken: null
+export type RegisterErrorResponse = {
+  message: string
+}
+
+export type LoginErrorResponse = {
+  errors: { message: string }[]
 }
 
 export type LoginResponse = {

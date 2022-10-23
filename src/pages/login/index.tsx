@@ -10,7 +10,11 @@ import {
 } from '@chakra-ui/react'
 import styled from 'styled-components'
 import client from '../../api/client'
-import { AuthErrorResponse, AuthRequest, LoginResponse } from '../../types/auth'
+import {
+  LoginErrorResponse,
+  AuthRequest,
+  LoginResponse
+} from '../../types/auth'
 import { AxiosError, AxiosResponse } from 'axios'
 import { mediaQuery } from '../../utils/style/mediaQuery'
 import { useCookies } from 'react-cookie'
@@ -92,9 +96,8 @@ const Login = () => {
         setCookie('HelloC', res.data.accessToken)
         router.push('/')
       })
-      .catch((e: AxiosError<AuthErrorResponse>) => {
-        console.log(e)
-        console.log('error')
+      .catch((e: AxiosError<LoginErrorResponse>) => {
+        alert(e.response?.data.errors[0].message)
       })
   }
 

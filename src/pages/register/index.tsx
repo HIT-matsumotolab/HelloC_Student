@@ -12,7 +12,7 @@ import styled from 'styled-components'
 import client from '../../api/client'
 import { AxiosError, AxiosResponse } from 'axios'
 import {
-  AuthErrorResponse,
+  RegisterErrorResponse,
   AuthRequest,
   RegisterResponse
 } from '../../types/auth'
@@ -99,9 +99,8 @@ const Register = () => {
         setCookie('HelloC', res.data.accessToken)
         router.push('/')
       })
-      .catch((e: AxiosError<AuthErrorResponse>) => {
-        console.log(e.response?.data.errors)
-        console.log('error')
+      .catch((e: AxiosError<RegisterErrorResponse>) => {
+        alert(e.response?.data.message)
       })
   }
 
