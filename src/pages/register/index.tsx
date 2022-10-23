@@ -20,6 +20,7 @@ import {
 import { mediaQuery } from '../../utils/style/mediaQuery'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { generateAuthCookieSetting } from '../../utils/style/generateAuthCookieSetting'
 
 const RegisterLayout = styled.div`
   padding: 100px 40px 0;
@@ -96,7 +97,7 @@ const Register = () => {
         role: '学習者'
       })
       .then((res: AxiosResponse<RegisterResponse>) => {
-        setCookie('HelloC', res.data.accessToken)
+        setCookie('HelloC', res.data.accessToken, generateAuthCookieSetting())
         router.push('/')
       })
       .catch((e: AxiosError<RegisterErrorResponse>) => {
