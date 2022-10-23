@@ -20,6 +20,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { mediaQuery } from '../../utils/style/mediaQuery'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { generateAuthCookieSetting } from '../../utils/style/generateAuthCookieSetting'
 
 const LoginLayout = styled.div`
   padding: 100px 40px 0;
@@ -94,7 +95,7 @@ const Login = () => {
         password: request.password
       })
       .then((res: AxiosResponse<LoginResponse>) => {
-        setCookie('HelloC', res.data.accessToken)
+        setCookie('HelloC', res.data.accessToken, generateAuthCookieSetting())
         router.push('/')
       })
       .catch((e: AxiosError<LoginErrorResponse>) => {
