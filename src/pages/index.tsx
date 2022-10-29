@@ -1,5 +1,7 @@
 import type { NextPage } from 'next'
+import { ReactElement } from 'react'
 import styled from 'styled-components'
+import MainPageLayout, { getLayout } from '../components/layouts/MainPageLayout'
 import { mediaQuery } from '../utils/style/mediaQuery'
 
 const Test = styled.div`
@@ -9,7 +11,7 @@ const Test = styled.div`
   `}
 `
 
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <div>
       <div>お知らせ</div>
@@ -20,4 +22,6 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+Home.getLayout = getLayout
 export default Home

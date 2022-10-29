@@ -67,4 +67,8 @@ const MainPageLayout = ({ children }: { children: JSX.Element }) => {
   )
 }
 
+export const getLayout = (page: React.ReactElement) => {
+  return <MainPageLayout>{page}</MainPageLayout>
+}
+
 export default MainPageLayout
