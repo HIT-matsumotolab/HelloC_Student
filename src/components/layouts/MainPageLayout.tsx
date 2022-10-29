@@ -2,6 +2,9 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { Overlay } from '../Overlay'
+import { zIndex } from '../../constants/zIndex'
+import { backgroundColor } from '../../constants/color'
+import { padding } from '../../constants/padding'
 
 const StyledMainPageLayout = styled.div`
   display: flex;
@@ -10,8 +13,8 @@ const StyledMainPageLayout = styled.div`
 `
 
 const MainPageHeader = styled.header`
-  padding: 20px;
-  background-color: #ffffff;
+  padding: ${padding.md};
+  background-color: ${backgroundColor.white};
   display: flex;
   gap: 100px;
 `
@@ -21,14 +24,14 @@ const Navigation = styled.nav<{ isOpen: boolean }>`
   top: 0;
   left: ${({ isOpen }) => (isOpen ? '0' : '-300px')};
   height: 100vh;
-  background-color: #ffffff;
+  background-color: ${backgroundColor.white};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: ${padding.md};
   transition: left 0.3s ease-out;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
-  z-index: 10000;
+  z-index: ${zIndex.navigation};
 `
 
 const MainPageLayout = ({ children }: { children: JSX.Element }) => {

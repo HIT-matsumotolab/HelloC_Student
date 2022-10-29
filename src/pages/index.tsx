@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import styled from 'styled-components'
-import { Button } from '@chakra-ui/react'
 import { mediaQuery } from '../utils/style/mediaQuery'
 
 const Test = styled.div`
