@@ -1,15 +1,4 @@
-import type { NextPage } from 'next'
-import { ReactElement } from 'react'
-import styled from 'styled-components'
-import MainPageLayout, { getLayout } from '../components/layouts/MainPageLayout'
-import { mediaQuery } from '../utils/style/mediaQuery'
-
-const Test = styled.div`
-  background-color: #000000;
-  ${mediaQuery['sp']`
-    background-color: aqua;
-  `}
-`
+import { getLayout } from '../components/layouts/MainPageLayout'
 
 const Home = () => {
   return (
