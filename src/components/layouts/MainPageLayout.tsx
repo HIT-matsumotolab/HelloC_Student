@@ -13,13 +13,14 @@ import { mediaQuery } from '../../utils/style/mediaQuery'
 import Image from 'next/image'
 
 const StyledMainPageLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: max-content 1fr;
+  height: 100vh;
 `
 
 const MainPageHeader = styled.header`
+  width: 100%;
   padding: ${padding.md};
   background-color: ${backgroundColor.white};
   display: flex;
