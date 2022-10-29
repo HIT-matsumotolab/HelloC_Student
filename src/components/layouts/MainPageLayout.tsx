@@ -8,6 +8,8 @@ import { padding } from '../../constants/padding'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { fontSize } from '../../constants/fontSize'
+import Link from 'next/link'
+import { mediaQuery } from '../../utils/style/mediaQuery'
 
 const StyledMainPageLayout = styled.div`
   display: flex;
@@ -23,7 +25,13 @@ const MainPageHeader = styled.header`
   gap: 100px;
   font-weight: bold;
   font-size: ${fontSize.heading1};
+
+  ${mediaQuery['sp']`
+  font-size: ${fontSize.heading3};
+  `}
 `
+
+//TODO Navigationのコード量が多いのでコンポーネントとして分離した方が良さそうだ
 
 const Navigation = styled.nav<{ isOpen: boolean }>`
   position: fixed;
@@ -34,17 +42,48 @@ const Navigation = styled.nav<{ isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: ${padding.lg} ${padding.md};
+  padding: ${padding.lg} 0;
   transition: left 0.3s ease-out;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
   z-index: ${zIndex.navigation};
 `
 
-const NavigationFooter = styled.div`
+const NavigationHeader = styled.div`
+  padding: 0 ${padding.md};
+`
+
+const NavigationLinkTabList = styled.ul`
+  list-style: none;
+`
+
+const NavigationLinkTab = styled.li`
+  text-align: center;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #66666650;
+  }
+`
+
+const NavigationFooter = styled.ul`
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
-  align-items: center;
+`
+
+const NavigationFooterTab = styled.li`
+  text-align: center;
+  transition: background-color 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #66666650;
+  }
+`
+
+const BlockLink = styled.a`
+  display: block;
+  padding: ${padding.sm} 0;
+  cursor: pointer;
 `
 
 const MainPageLayout = ({ children }: { children: JSX.Element }) => {
@@ -76,22 +115,46 @@ const MainPageLayout = ({ children }: { children: JSX.Element }) => {
       </MainPageHeader>
       <main>{children}</main>
       <Navigation isOpen={isOpenNavigation}>
-        <div>
-          <div>ロゴをおく</div>
+        <NavigationHeader>
+          <div>ロゴをおく予定</div>
           <div>ようこそ、〇〇さん</div>
-        </div>
-        <ul>
-          <li>リンクをおく</li>
-          <li>リンクをおく</li>
-          <li>リンクをおく</li>
-          <li>リンクをおく</li>
-          <li>リンクをおく</li>
-        </ul>
+        </NavigationHeader>
+        <NavigationLinkTabList>
+          <NavigationLinkTab>
+            <Link href="/">
+              <BlockLink>メインページ</BlockLink>
+            </Link>
+          </NavigationLinkTab>
+          <NavigationLinkTab>
+            <Link href="#">
+              <BlockLink>クラスの管理</BlockLink>
+            </Link>
+          </NavigationLinkTab>
+          <NavigationLinkTab>
+            <Link href="#">
+              <BlockLink>問題集の管理</BlockLink>
+            </Link>
+          </NavigationLinkTab>
+          <NavigationLinkTab>
+            <Link href="#">
+              <BlockLink>進捗の管理</BlockLink>
+            </Link>
+          </NavigationLinkTab>
+          <NavigationLinkTab>
+            <Link href="#">
+              <BlockLink>学習ログの管理</BlockLink>
+            </Link>
+          </NavigationLinkTab>
+        </NavigationLinkTabList>
         <NavigationFooter>
-          <span>ユーザー情報確認</span>
-          <span onClick={logoutHandler} style={{ cursor: 'pointer' }}>
-            ログアウト
-          </span>
+          <NavigationFooterTab>
+            <Link href="#">
+              <BlockLink>ユーザー情報確認</BlockLink>
+            </Link>
+          </NavigationFooterTab>
+          <NavigationFooterTab onClick={logoutHandler}>
+            <BlockLink>ログアウト</BlockLink>
+          </NavigationFooterTab>
         </NavigationFooter>
       </Navigation>
       {isOpenNavigation && (
