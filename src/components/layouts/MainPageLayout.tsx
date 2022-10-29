@@ -7,6 +7,7 @@ import { backgroundColor } from '../../constants/color'
 import { padding } from '../../constants/padding'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { fontSize } from '../../constants/fontSize'
 
 const StyledMainPageLayout = styled.div`
   display: flex;
@@ -18,7 +19,10 @@ const MainPageHeader = styled.header`
   padding: ${padding.md};
   background-color: ${backgroundColor.white};
   display: flex;
+  align-items: center;
   gap: 100px;
+  font-weight: bold;
+  font-size: ${fontSize.heading1};
 `
 
 const Navigation = styled.nav<{ isOpen: boolean }>`
@@ -30,10 +34,17 @@ const Navigation = styled.nav<{ isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: ${padding.md};
+  padding: ${padding.lg} ${padding.md};
   transition: left 0.3s ease-out;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
   z-index: ${zIndex.navigation};
+`
+
+const NavigationFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
 `
 
 const MainPageLayout = ({ children }: { children: JSX.Element }) => {
@@ -76,12 +87,12 @@ const MainPageLayout = ({ children }: { children: JSX.Element }) => {
           <li>リンクをおく</li>
           <li>リンクをおく</li>
         </ul>
-        <div>
+        <NavigationFooter>
           <span>ユーザー情報確認</span>
           <span onClick={logoutHandler} style={{ cursor: 'pointer' }}>
             ログアウト
           </span>
-        </div>
+        </NavigationFooter>
       </Navigation>
       {isOpenNavigation && (
         <Overlay onClick={() => setIsOpenNavigation(false)} />
