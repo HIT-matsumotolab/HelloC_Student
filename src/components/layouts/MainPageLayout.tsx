@@ -10,11 +10,13 @@ import { useCookies } from 'react-cookie'
 import { fontSize } from '../../constants/fontSize'
 import Link from 'next/link'
 import { mediaQuery } from '../../utils/style/mediaQuery'
+import Image from 'next/image'
 
 const StyledMainPageLayout = styled.div`
   display: flex;
   flex-direction: column;
   justify-items: center;
+  height: 100%;
 `
 
 const MainPageHeader = styled.header`
@@ -38,10 +40,12 @@ const Navigation = styled.nav<{ isOpen: boolean }>`
   top: 0;
   left: ${({ isOpen }) => (isOpen ? '0' : '-300px')};
   height: 100vh;
+  overflow-y: scroll;
   background-color: ${backgroundColor.white};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  row-gap: 40px;
   padding: ${padding.lg} 0;
   transition: left 0.3s ease-out;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
@@ -50,6 +54,10 @@ const Navigation = styled.nav<{ isOpen: boolean }>`
 
 const NavigationHeader = styled.div`
   padding: 0 ${padding.md};
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 `
 
 const NavigationLinkTabList = styled.ul`
@@ -116,7 +124,7 @@ const MainPageLayout = ({ children }: { children: JSX.Element }) => {
       <main>{children}</main>
       <Navigation isOpen={isOpenNavigation}>
         <NavigationHeader>
-          <div>ロゴをおく予定</div>
+          <Image alt="Logo" src="/logo.svg" width="50" height="50" />
           <div>ようこそ、〇〇さん</div>
         </NavigationHeader>
         <NavigationLinkTabList>
