@@ -11,22 +11,22 @@ import {
 } from '@chakra-ui/react'
 import styled from 'styled-components'
 import client from '../../api/client'
-import {
-  LoginErrorResponse,
-  AuthRequest,
-  LoginResponse
-} from '../../types/auth'
 import { AxiosError, AxiosResponse } from 'axios'
+import {
+  RegisterErrorResponse,
+  AuthRequest,
+  RegisterResponse
+} from '../../types/auth'
 import { mediaQuery } from '../../utils/style/mediaQuery'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { generateAuthCookieSetting } from '../../utils/style/generateAuthCookieSetting'
 
-const LoginLayout = styled.div`
+const RegisterLayout = styled.div`
   padding: 100px 40px 0;
 `
 
-const LoginForm = styled.form`
+const RegisterForm = styled.form`
   margin: 0 auto;
   max-width: 500px;
   margin-top: 50px;
@@ -35,7 +35,7 @@ const LoginForm = styled.form`
   row-gap: 20px;
 `
 
-const LoginHeading = styled.div`
+const RegisterHeading = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -47,7 +47,7 @@ const LoginHeading = styled.div`
   }
 `
 
-const LoginTitle = styled.span`
+const RegisterTitle = styled.span`
   font-size: 40px;
   font-weight: bold;
   color: #ffffff;
@@ -57,7 +57,7 @@ const LoginTitle = styled.span`
   `}
 `
 
-const LoginCaption = styled.div`
+const RegisterCaption = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 15px;
@@ -78,7 +78,7 @@ const LinkCaption = styled.div`
   margin-top: 15px;
 `
 
-const Login = () => {
+const Register = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['HelloC'])
   const toast = useToast()
   const router = useRouter()
@@ -88,20 +88,22 @@ const Login = () => {
     formState: { errors, isValid }
   } = useForm<AuthRequest>({ mode: 'onBlur' })
 
-  const loginHandler = (request: AuthRequest) => {
+  const RegisterHandler = (request: AuthRequest) => {
     client
-      .post(`/auth/signin`, {
+      .post(`/auth/signup`, {
         mail: request.mail,
-        password: request.password
+        password: request.password,
+        name: request.name,
+        role: '学習者'
       })
-      .then((res: AxiosResponse<LoginResponse>) => {
+      .then((res: AxiosResponse<RegisterResponse>) => {
         setCookie('HelloC', res.data.accessToken, generateAuthCookieSetting())
         router.push('/')
       })
-      .catch((e: AxiosError<LoginErrorResponse>) => {
+      .catch((e: AxiosError<RegisterErrorResponse>) => {
         toast({
-          title: 'Login Failed...',
-          description: e.response?.data.errors[0].message,
+          title: 'Register Failed...',
+          description: e.response?.data.message,
           status: 'error',
           duration: 5000,
           isClosable: true
@@ -110,32 +112,46 @@ const Login = () => {
   }
 
   return (
-    <LoginLayout>
-      <LoginHeading>
+    <RegisterLayout>
+      <RegisterHeading>
         <Image alt="Logo" src="/logo.svg" width="130" height="119" />
-        <LoginTitle> HelloC For Student</LoginTitle>
-      </LoginHeading>
-      <LoginCaption>
+        <RegisterTitle> HelloC For Student</RegisterTitle>
+      </RegisterHeading>
+      <RegisterCaption>
         <span>HelloC学習者向けサービス</span>
-        <span>ログイン</span>
-      </LoginCaption>
+        <span>新規登録</span>
+      </RegisterCaption>
 
       <LinkCaption>
         <Link
           color="#ffffff"
           style={{ borderBottom: '1px solid #ffffff', textDecoration: 'none' }}
-          href="/register"
+          href="/login"
         >
-          新規登録はこちら
+          ログインはこちら
         </Link>
       </LinkCaption>
 
-      <LoginForm onSubmit={handleSubmit(loginHandler)}>
+      <RegisterForm onSubmit={handleSubmit(RegisterHandler)}>
         <FormControl>
           <Input
             backgroundColor="#ffffff"
-            placeholder="メールアドレス"
+            type="name"
+            placeholder="名前"
+            {...register('name', {
+              required: 'Required'
+            })}
+          />
+          <FormErrorMessage>
+            {errors.mail && errors.mail.message}
+          </FormErrorMessage>
+        </FormControl>
+
+        <FormControl>
+          <Input
+            backgroundColor="#ffffff"
             type="mail"
+            placeholder="メールアドレス"
             {...register('mail', {
               required: 'Required',
               pattern: {
@@ -170,12 +186,13 @@ const Login = () => {
           color="#ffffff"
           type="submit"
           disabled={!isValid}
+          style={{ width: '100%' }}
         >
-          Login
+          Register
         </Button>
-      </LoginForm>
-    </LoginLayout>
+      </RegisterForm>
+    </RegisterLayout>
   )
 }
 
-export default Login
+export default Register
