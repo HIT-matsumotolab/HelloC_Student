@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { Overlay } from '../Overlay'
 import { zIndex } from '../../constants/zIndex'
 import { backgroundColor } from '../../constants/color'
 import { padding } from '../../constants/padding'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
 
 const StyledMainPageLayout = styled.div`
   display: flex;
@@ -36,10 +38,29 @@ const Navigation = styled.nav<{ isOpen: boolean }>`
 
 const MainPageLayout = ({ children }: { children: JSX.Element }) => {
   const [isOpenNavigation, setIsOpenNavigation] = useState(false)
+  const router = useRouter()
+  const [cookies, setCookie, removeCookie] = useCookies(['HelloC'])
+
+  const logoutHandler = () => {
+    removeCookie('HelloC')
+    router.push('/login')
+  }
+
+  useEffect(() => {
+    //アクセストークンがセットされていない場合はログイン画面に遷移
+    //TODO アクセストークンが不正の場合の対処も作らないといけない
+    if (!cookies['HelloC']) router.push('/login')
+  }, [])
+
   return (
     <StyledMainPageLayout>
       <MainPageHeader>
-        <HamburgerIcon w={7} h={7} onClick={() => setIsOpenNavigation(true)} />
+        <HamburgerIcon
+          w={25}
+          h={25}
+          onClick={() => setIsOpenNavigation(true)}
+          style={{ cursor: 'pointer' }}
+        />
         <div>HelloC for Student</div>
       </MainPageHeader>
       <main>{children}</main>
@@ -57,7 +78,9 @@ const MainPageLayout = ({ children }: { children: JSX.Element }) => {
         </ul>
         <div>
           <span>ユーザー情報確認</span>
-          <span>ログアウト</span>
+          <span onClick={logoutHandler} style={{ cursor: 'pointer' }}>
+            ログアウト
+          </span>
         </div>
       </Navigation>
       {isOpenNavigation && (
