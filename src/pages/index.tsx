@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import styled from 'styled-components'
-import { Button, ButtonGroup } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 import { mediaQuery } from '../utils/style/mediaQuery'
 
 const Test = styled.div`
@@ -13,8 +13,11 @@ const Test = styled.div`
 const Home: NextPage = () => {
   return (
     <div>
-      <Button colorScheme="blue">Button</Button>
-      <Test>test</Test>
+      <div>お知らせ</div>
+      <div>
+        <div>直近の活動？</div>
+        <div>ログ？</div>
+      </div>
     </div>
   )
 }
