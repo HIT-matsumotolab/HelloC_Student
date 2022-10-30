@@ -23,6 +23,7 @@ import { useRouter } from 'next/router'
 import { generateAuthCookieSetting } from '../../utils/style/generateAuthCookieSetting'
 import { ApplicationHeader } from '../../components/app/ApplicationHeader'
 import { backgroundColor, borderColor, color } from '../../constants/color'
+import { fontSize } from '../../constants/fontSize'
 
 const LoginLayout = styled.div`
   padding: 100px 40px 0;
@@ -50,7 +51,7 @@ const LoginHeading = styled.div`
 `
 
 const LoginTitle = styled.span`
-  font-size: 40px;
+  font-size: ${fontSize.title};
   font-weight: bold;
   color: ${color.white};
 
@@ -65,7 +66,7 @@ const LoginCaption = styled.div`
   row-gap: 15px;
   margin-top: 30px;
   text-align: center;
-  font-size: 30px;
+  font-size: ${fontSize.heading1};
   font-weight: bold;
   color: ${color.white};
 
@@ -75,7 +76,7 @@ const LoginCaption = styled.div`
 `
 
 const LinkCaption = styled.div`
-  font-size: 15px;
+  font-size: ${fontSize.heading4};
   text-align: center;
   margin-top: 15px;
 `
