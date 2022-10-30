@@ -21,6 +21,7 @@ import { mediaQuery } from '../../utils/style/mediaQuery'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { generateAuthCookieSetting } from '../../utils/style/generateAuthCookieSetting'
+import { ApplicationHeader } from '../../components/app/ApplicationHeader'
 
 const RegisterLayout = styled.div`
   padding: 100px 40px 0;
@@ -113,6 +114,7 @@ const Register = () => {
 
   return (
     <RegisterLayout>
+      <ApplicationHeader pageTitle="HelloC新規登録" />
       <RegisterHeading>
         <Image alt="Logo" src="/logo.svg" width="130" height="119" />
         <RegisterTitle> HelloC For Student</RegisterTitle>

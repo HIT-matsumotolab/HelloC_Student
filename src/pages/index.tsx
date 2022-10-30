@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { ApplicationHeader } from '../components/app/ApplicationHeader'
 import { getLayout } from '../components/layouts/MainPageLayout'
 
 const StyledHome = styled.div`
@@ -17,6 +18,7 @@ const HomeBottom = styled.div`
 const Home = () => {
   return (
     <StyledHome>
+      <ApplicationHeader pageTitle="メインページ" />
       <div style={{ backgroundColor: '#ff00ff40' }}>お知らせ</div>
       <HomeBottom>
         <div style={{ backgroundColor: '#ff000040' }}>直近の活動？</div>
