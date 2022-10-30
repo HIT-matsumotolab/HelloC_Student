@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import { ApplicationHeader } from '../components/app/ApplicationHeader'
 import { getLayout } from '../components/layouts/MainPageLayout'
+import { color } from '../constants/color'
 
 const StyledHome = styled.div`
   height: 100%;
-  color: #ffffff;
+  color: ${color.white};
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
