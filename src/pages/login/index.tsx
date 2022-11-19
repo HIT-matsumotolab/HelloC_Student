@@ -21,6 +21,9 @@ import { mediaQuery } from '../../utils/style/mediaQuery'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { generateAuthCookieSetting } from '../../utils/style/generateAuthCookieSetting'
+import { ApplicationHeader } from '../../components/app/ApplicationHeader'
+import { backgroundColor, borderColor, color } from '../../constants/color'
+import { fontSize } from '../../constants/fontSize'
 
 const LoginLayout = styled.div`
   padding: 100px 40px 0;
@@ -48,9 +51,9 @@ const LoginHeading = styled.div`
 `
 
 const LoginTitle = styled.span`
-  font-size: 40px;
+  font-size: ${fontSize.title};
   font-weight: bold;
-  color: #ffffff;
+  color: ${color.white};
 
   ${mediaQuery['sp']`
   font-size:28px;
@@ -63,9 +66,9 @@ const LoginCaption = styled.div`
   row-gap: 15px;
   margin-top: 30px;
   text-align: center;
-  font-size: 30px;
+  font-size: ${fontSize.heading1};
   font-weight: bold;
-  color: #ffffff;
+  color: ${color.white};
 
   ${mediaQuery['sp']`
   font-size:18px;
@@ -73,7 +76,7 @@ const LoginCaption = styled.div`
 `
 
 const LinkCaption = styled.div`
-  font-size: 15px;
+  font-size: ${fontSize.heading4};
   text-align: center;
   margin-top: 15px;
 `
@@ -111,6 +114,7 @@ const Login = () => {
 
   return (
     <LoginLayout>
+      <ApplicationHeader pageTitle="HelloCログイン" />
       <LoginHeading>
         <Image alt="Logo" src="/logo.svg" width="130" height="119" />
         <LoginTitle> HelloC For Student</LoginTitle>
@@ -122,8 +126,11 @@ const Login = () => {
 
       <LinkCaption>
         <Link
-          color="#ffffff"
-          style={{ borderBottom: '1px solid #ffffff', textDecoration: 'none' }}
+          color={color.white}
+          style={{
+            borderBottom: `1px solid ${borderColor.white}`,
+            textDecoration: 'none'
+          }}
           href="/register"
         >
           新規登録はこちら
@@ -133,7 +140,7 @@ const Login = () => {
       <LoginForm onSubmit={handleSubmit(loginHandler)}>
         <FormControl>
           <Input
-            backgroundColor="#ffffff"
+            backgroundColor={backgroundColor.white}
             placeholder="メールアドレス"
             type="mail"
             {...register('mail', {
@@ -150,7 +157,7 @@ const Login = () => {
         </FormControl>
         <FormControl>
           <Input
-            backgroundColor="#ffffff"
+            backgroundColor={backgroundColor.white}
             type="password"
             placeholder="パスワード"
             {...register('password', {
@@ -166,8 +173,8 @@ const Login = () => {
           </FormErrorMessage>
         </FormControl>
         <Button
-          backgroundColor="#31C6D4"
-          color="#ffffff"
+          backgroundColor={backgroundColor.aqua}
+          color={color.white}
           type="submit"
           disabled={!isValid}
         >
