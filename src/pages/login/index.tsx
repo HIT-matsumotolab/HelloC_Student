@@ -93,8 +93,8 @@ const Login = () => {
 
   const loginHandler = (request: AuthRequest) => {
     client
-      .post(`/auth/signin`, {
-        mail: request.mail,
+      .post(`/login`, {
+        email: request.email,
         password: request.password
       })
       .then((res: AxiosResponse<LoginResponse>) => {
@@ -143,7 +143,7 @@ const Login = () => {
             backgroundColor={backgroundColor.white}
             placeholder="メールアドレス"
             type="mail"
-            {...register('mail', {
+            {...register('email', {
               required: 'Required',
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -152,7 +152,7 @@ const Login = () => {
             })}
           />
           <FormErrorMessage>
-            {errors.mail && errors.mail.message}
+            {errors.email && errors.email.message}
           </FormErrorMessage>
         </FormControl>
         <FormControl>

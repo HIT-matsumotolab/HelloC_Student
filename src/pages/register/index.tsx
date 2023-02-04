@@ -93,8 +93,8 @@ const Register = () => {
 
   const RegisterHandler = (request: AuthRequest) => {
     client
-      .post(`/auth/signup`, {
-        mail: request.mail,
+      .post(`/register`, {
+        mail: request.email,
         password: request.password,
         name: request.name,
         role: '学習者'
@@ -150,7 +150,7 @@ const Register = () => {
             })}
           />
           <FormErrorMessage>
-            {errors.mail && errors.mail.message}
+            {errors.email && errors.email.message}
           </FormErrorMessage>
         </FormControl>
 
@@ -159,7 +159,7 @@ const Register = () => {
             backgroundColor={backgroundColor.white}
             type="mail"
             placeholder="メールアドレス"
-            {...register('mail', {
+            {...register('email', {
               required: 'Required',
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -168,7 +168,7 @@ const Register = () => {
             })}
           />
           <FormErrorMessage>
-            {errors.mail && errors.mail.message}
+            {errors.email && errors.email.message}
           </FormErrorMessage>
         </FormControl>
         <FormControl>

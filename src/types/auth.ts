@@ -20,6 +20,6 @@ export type RegisterResponse = {
 
 export type AuthRequest = {
   name: string
-  mail: string
+  email: string
   password: string
 }
