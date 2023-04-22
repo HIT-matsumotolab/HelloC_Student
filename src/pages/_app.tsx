@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../chakra-ui/theme'
 import { NextPage } from 'next'
+import { SWRConfig } from 'swr'
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: React.ReactElement) => React.ReactNode
@@ -17,7 +18,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return getLayout(
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <SWRConfig>
+        <Component {...pageProps} />
+      </SWRConfig>
     </ChakraProvider>
   )
 }
