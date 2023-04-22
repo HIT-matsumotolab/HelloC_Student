@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { getLog as fetcher } from '../../axios/log/getLog'
+import { getLog as fetcher } from '../../axios/log'
 
 import client from '../../client'
 
