@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useLogList } from '../api/swr/log/useLogList'
 import { ApplicationHeader } from '../components/app/ApplicationHeader'
 import { getLayout } from '../components/layouts/MainPageLayout'
 import { color } from '../constants/color'
@@ -17,6 +18,7 @@ const HomeBottom = styled.div`
 `
 
 const Home = () => {
+  useLogList()
   return (
     <StyledHome>
       <ApplicationHeader pageTitle="メインページ" />
